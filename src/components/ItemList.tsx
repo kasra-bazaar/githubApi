@@ -1,8 +1,19 @@
+type items = {
+  name: string;
+  lang: string;
+  des: string | null;
+};
 
-
-
-export default function ItemList() {
+export default function ItemList({ name, lang, des }: items) {
   return (
-    <li>ItemList</li>
-  )
+    <>
+      <tbody>
+        <tr>
+          <td>{name}</td>
+          <td>{lang}</td>
+          <td>{des}</td>
+        </tr>
+      </tbody>
+    </>
+  );
 }

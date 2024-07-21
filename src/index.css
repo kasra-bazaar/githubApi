@@ -7,9 +7,10 @@
     @apply font-mono;
   }
 }
-body {
+html {
   background: linear-gradient(#e66465, #9198e5);
   background-size: cover;
   background-repeat: no-repeat;
-  height: 100dvh;
+  
+  background-attachment: fixed;
 }
