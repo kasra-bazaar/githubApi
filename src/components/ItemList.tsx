@@ -1,6 +1,6 @@
 type items = {
   name: string;
-  lang: string;
+  lang: string | null;
   des: string | null;
 };
 

@@ -1,6 +1,7 @@
 import useSWR from "swr";
-import { repositorySchema } from "../utils/zod";
+import { repositorySchema, repositorySchemaTypeChecking } from "../utils/zod";
 import ItemList from "./ItemList";
+import { Key } from "react";
 
 type repoData = Zod.infer<typeof repositorySchema>;
 export default function List({ userId }: { userId: string | null }) {
@@ -8,6 +9,25 @@ export default function List({ userId }: { userId: string | null }) {
     `https://api.github.com/users/${userId}/repos`
   );
   const sekeletonArray = Array.from({ length: 5 }, (_, index) => index);
+
+  if (data && data.length > 1) {
+    if (repositorySchemaTypeChecking.safeParse(data).success === false) {
+      return (
+        <p className=" font-bold text-gray-800 text-3xl">
+          WE HAVE SOME ERROR AT THIS TIME - SOMTHING WENT WRONG!
+        </p>
+      );
+    }
+  }
+
+  if (data?.status === "404") {
+    return (
+      <p className=" font-bold text-gray-800 text-3xl">
+        {" "}
+        GITHUB DOES NOT HAVE THIS USERID !!
+      </p>
+    );
+  }
   return (
     <>
       {!userId && (
@@ -24,8 +44,9 @@ export default function List({ userId }: { userId: string | null }) {
               </tr>
             </thead>
             {isLoading &&
-              sekeletonArray.map(() => (
-                <tbody>
+              // eslint-disable-next-line @typescript-eslint/no-unused-vars
+              sekeletonArray.map((_: unknown, index: Key) => (
+                <tbody key={index}>
                   <tr>
                     <td>
                       {" "}
@@ -41,8 +62,10 @@ export default function List({ userId }: { userId: string | null }) {
                 </tbody>
               ))}
             {!isLoading &&
-              data?.map((item: repoData) => (
+              data &&
+              data?.map((item: repoData, index: Key) => (
                 <ItemList
+                  key={index}
                   name={item.name}
                   lang={item.language}
                   des={item.description}

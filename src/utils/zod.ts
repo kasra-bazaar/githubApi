@@ -79,7 +79,7 @@ const repositorySchema = z.object({
   size: z.number(),
   stargazers_count: z.number(),
   watchers_count: z.number(),
-  language: z.string(),
+  language: z.string().nullable(),
   has_issues: z.boolean(),
   has_projects: z.boolean(),
   has_downloads: z.boolean(),
@@ -102,5 +102,5 @@ const repositorySchema = z.object({
   watchers: z.number(),
   default_branch: z.string(),
 });
-
-export { repositorySchema, ownerSchema };
+const repositorySchemaTypeChecking = z.array(repositorySchema);
+export { repositorySchema, repositorySchemaTypeChecking };
