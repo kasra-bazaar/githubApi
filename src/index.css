@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-mono;
+  }
+}
+body {
+  background: linear-gradient(#e66465, #9198e5);
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100dvh;
+}
