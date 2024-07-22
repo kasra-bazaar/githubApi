@@ -5,11 +5,11 @@ import { Key } from "react";
 
 type repoData = Zod.infer<typeof repositorySchema>;
 export default function List({ userId }: { userId: string | null }) {
-  const { data, isLoading } = useSWR(
-    `https://api.github.com/users/${userId}/repos`
+  const { data, isLoading , error } = useSWR(
+    userId ? `https://api.github.com/users/${userId}/repos` : null
   );
   const sekeletonArray = Array.from({ length: 5 }, (_, index) => index);
-
+  console.log(data);
   if (data && data.length > 1) {
     if (repositorySchemaTypeChecking.safeParse(data).success === false) {
       return (
@@ -27,6 +27,9 @@ export default function List({ userId }: { userId: string | null }) {
         GITHUB DOES NOT HAVE THIS USERID !!
       </p>
     );
+  }
+  if(error) { 
+    return <p className=" text-gray-800 font-bold text-3xl "> WE HAVE AN ERROR , WE WILL FIX IT SOON , STAY TUNED !!</p>
   }
   return (
     <>
