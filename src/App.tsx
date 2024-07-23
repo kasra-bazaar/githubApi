@@ -1,7 +1,7 @@
 import { useState } from "react";
-import Form from "./components/Form";
-import ImgSection from "./components/ImgSection";
-import List from "./components/List";
+import Form from "./components/form/Form";
+import ImgSection from "./components/image/ImgSection";
+import List from "./components/list/List";
 
 function App() {
   const [userId, setUserId] = useState<string | null>(null);

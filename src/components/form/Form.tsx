@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
 import { FormEvent } from "react";
 
-export default function Form({ onAddValue }: { onAddValue: (value : string) => void }) {
+type passProp = { onAddValue: (value: string) => void };
+export default function Form({ onAddValue }: passProp) {
   const submitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;

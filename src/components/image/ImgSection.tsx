@@ -1,4 +1,4 @@
-import Logo from "../assets/github.png";
+import Logo from "../../assets/github.png";
 import { motion } from "framer-motion";
 export default function ImgSection() {
   return (
